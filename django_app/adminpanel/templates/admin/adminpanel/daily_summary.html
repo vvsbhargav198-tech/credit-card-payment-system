@@ -1,0 +1,41 @@
+{% extends "admin/base_site.html" %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Home</a> &rsaquo;
+  <a href="{% url 'admin:transactions_transaction_changelist' %}">Transactions</a> &rsaquo;
+  Daily Payment Summary
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <form method="get" style="margin-bottom: 16px;">
+    From <input type="date" name="date_from" value="{{ date_from }}">
+    To <input type="date" name="date_to" value="{{ date_to }}">
+    <input type="submit" value="Filter">
+  </form>
+
+  <div class="module">
+    <table style="width:100%">
+      <thead>
+        <tr>
+          <th>Date (UTC)</th><th>Total</th><th>Success</th><th>Failed</th><th>Pending</th>
+          <th>Success rate</th><th>Total volume</th><th>Amount charged (SUCCESS)</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for row in rows %}
+        <tr>
+          <td>{{ row.day }}</td><td>{{ row.total }}</td><td>{{ row.success_count }}</td>
+          <td>{{ row.failed_count }}</td><td>{{ row.pending_count }}</td>
+          <td>{{ row.success_rate }}%</td><td>{{ row.total_amount }}</td><td>{{ row.success_amount }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="8">No transactions in this period.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
