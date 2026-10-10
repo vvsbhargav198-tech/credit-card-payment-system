@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+# Secrets / local config
+.env
+# Django
+django_app/staticfiles/
+*.sqlite3
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
